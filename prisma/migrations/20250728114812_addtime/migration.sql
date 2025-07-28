@@ -1,0 +1,14 @@
+-- CreateTable
+CREATE TABLE "Time" (
+    "id" SERIAL NOT NULL,
+    "DateTime" TIMESTAMP(3) NOT NULL,
+    "DateTimeAuto" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "DateTimedbDate" DATE NOT NULL,
+    "DateTimedbDateD" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "DateTimedbTimestamp3" TIMESTAMP(3) NOT NULL,
+    "DateTimedbTimestamp3D" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "DateTimedbTimestamptz3" TIMESTAMPTZ(3) NOT NULL,
+    "DateTimedbTimestamptz3D" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Time_pkey" PRIMARY KEY ("id")
+);

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { Prisma, User } from '@prisma/client';
 import { CreateProfileDomainDto, CreateUserDto, DomainUser } from './user.dto';
+import { TimeEntity } from './time.dto';
 
 @Injectable()
 export class UserRepository {
@@ -125,5 +126,32 @@ export class UserRepository {
 			},
 		});
 		return DomainUser.createFromData(user);
+	}
+
+	async createTime(time) {
+		const raw = await this.prisma.$executeRawUnsafe(`
+  INSERT INTO "Time" (
+    "DateTime",
+    "DateTimedbDate",
+    "DateTimedbTimestamp3",
+    "DateTimedbTimestamptz3"
+  ) VALUES (
+    NOW(),         -- обычное DateTime
+    CURRENT_DATE,  -- только дата
+    NOW(),         -- timestamp без timezone
+    NOW()          -- timestamptz с timezone
+  )
+  RETURNING *;
+
+
+`);
+
+		console.log(raw);
+
+		const prismaResult = await this.prisma.time.create({
+			data: { ...time },
+		});
+
+		return { prismaResult };
 	}
 }

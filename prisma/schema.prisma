@@ -22,3 +22,23 @@ model User {
   email     String   @unique
   Profile   Profile?
 }
+
+model Time {
+  id Int @id @default(autoincrement())
+
+  DateTime DateTime
+  DateTimeAuto DateTime @default(now())
+
+    /// Только дата (без времени)
+  DateTimedbDate DateTime @db.Date
+  DateTimedbDateD      DateTime @db.Date @default(now())
+
+  /// Дата и время без часового пояса (локальное)
+  DateTimedbTimestamp3     DateTime @db.Timestamp(3) 
+  DateTimedbTimestamp3D     DateTime @db.Timestamp(3) @default(now())
+
+  /// Дата и время с часовым поясом (UTC, рекомендуется)
+   DateTimedbTimestamptz3   DateTime @db.Timestamptz(3)
+  DateTimedbTimestamptz3D   DateTime @db.Timestamptz(3) @default(now())
+
+}

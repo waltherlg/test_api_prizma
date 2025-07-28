@@ -18,6 +18,7 @@ import {
 } from './user.dto';
 import { UserService } from './user.service';
 import { createZodDto } from 'nestjs-zod';
+import { TimeEntity } from './time.dto';
 
 export class createUsersShemaDto extends createZodDto(schemesApi.user.create) {}
 
@@ -75,6 +76,13 @@ export class UserController {
 	@Post('profile')
 	async createProfileForUser(@Body() body: inputProfileBody) {
 		const result = await this.userServise.createProfile(body);
+		return result;
+	}
+
+	@Post('time')
+	async postTime() {
+		const time = TimeEntity.newEntity();
+		const result = await this.userRepository.createTime(time);
 		return result;
 	}
 }
